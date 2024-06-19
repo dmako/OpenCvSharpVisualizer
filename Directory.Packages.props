@@ -1,0 +1,10 @@
+<Project>
+  <ItemGroup>
+    <PackageVersion Include="Microsoft.VisualStudio.DebuggerVisualizers" Version="17.6.1032901" />
+    <PackageVersion Include="Microsoft.VisualStudio.Extensibility.Sdk" Version="17.9.2092" />
+    <PackageVersion Include="Microsoft.VisualStudio.Extensibility.Build" Version="17.9.2092" />
+    <PackageVersion Include="OpenCvSharp4" Version="4.9.0.20240103" />
+    <PackageVersion Include="OpenCvSharp4.Windows" Version="4.9.0.20240103" />
+    <PackageVersion Include="Microsoft.SourceLink.GitHub" Version="8.0.0" />
+  </ItemGroup>
+</Project>

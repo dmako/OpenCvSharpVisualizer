@@ -1,0 +1,41 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <Title>OpenCvSharp Visualizer</Title>
+        <PackageProjectUrl>https://github.com/dmako/OpenCvSharpVisualizer</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/dmako/OpenCvSharpVisualizer</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <MinimumVisualStudioVersion>17.6.0</MinimumVisualStudioVersion>
+        <VsixType>v3</VsixType>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Compile Remove="OpenCvSharpVisualizerControl.xaml.cs" />
+        <None Remove="OpenCvSharpVisualizerControl.xaml" />
+        <Page Remove="OpenCvSharpVisualizerControl.xaml" />
+        <None Include="source.extension.vsixmanifest">
+            <SubType>Designer</SubType>
+        </None>
+    </ItemGroup>
+
+    <ItemGroup>
+        <EmbeddedResource Include="OpenCvSharpVisualizerControl.xaml">
+            <Generator>MSBuild:Compile</Generator>
+        </EmbeddedResource>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\OpenCvSharpVisualizer.DebuggeeSide\OpenCvSharpVisualizer.DebuggeeSide.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Content Include="..\OpenCvSharpVisualizer.DebuggeeSide\bin\$(Configuration)\netstandard2.0\OpenCvSharpVisualizer.DebuggeeSide.dll" Link="netstandard2.0\OpenCvSharpVisualizer.DebuggeeSide.dll" CopyToOutputDirectory="Always" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.VisualStudio.Extensibility.Sdk" />
+        <PackageReference Include="Microsoft.VisualStudio.Extensibility.Build" />
+        <PackageReference Include="OpenCvSharp4.Windows" />
+    </ItemGroup>
+
+</Project>

@@ -1,0 +1,4 @@
+{
+  "OpenCvSharpVisualizer.OpenCvSharpVisualizerProvider.Mat.DisplayName": "OpenCvSharp Mat Visualizer",
+  "OpenCvSharpVisualizer.OpenCvSharpVisualizerProvider.UMat.DisplayName": "OpenCvSharp UMat Visualizer"
+}
