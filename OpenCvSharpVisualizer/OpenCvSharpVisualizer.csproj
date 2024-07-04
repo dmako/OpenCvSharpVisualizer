@@ -7,10 +7,19 @@
         <RepositoryType>git</RepositoryType>
         <MinimumVisualStudioVersion>17.6.0</MinimumVisualStudioVersion>
         <VsixType>v3</VsixType>
+        <ApplicationIcon>icon\opencvsharpvis.ico</ApplicationIcon>
     </PropertyGroup>
 
     <ItemGroup>
         <Compile Remove="OpenCvSharpVisualizerControl.xaml.cs" />
+        <None Remove="icon\opencvsharpvis_128x128.png" />
+        <None Remove="icon\opencvsharpvis_16x16.png" />
+        <None Remove="icon\opencvsharpvis_256x256.png" />
+        <None Remove="icon\opencvsharpvis_32x32.png" />
+        <None Remove="icon\opencvsharpvis_48x48.png" />
+        <None Remove="icon\opencvsharpvis_512x512.png" />
+        <None Remove="icon\opencvsharpvis_72x72.png" />
+        <None Remove="icon\opencvsharpvis_96x96.png" />
         <None Remove="OpenCvSharpVisualizerControl.xaml" />
         <Page Remove="OpenCvSharpVisualizerControl.xaml" />
     </ItemGroup>
@@ -27,6 +36,33 @@
 
     <ItemGroup>
         <Content Include="..\OpenCvSharpVisualizer.DebuggeeSide\bin\$(Configuration)\netstandard2.0\OpenCvSharpVisualizer.DebuggeeSide.dll" Link="netstandard2.0\OpenCvSharpVisualizer.DebuggeeSide.dll" CopyToOutputDirectory="Always" />
+        <Content Include="icon\opencvsharpvis.ico">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="icon\opencvsharpvis_128x128.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="icon\opencvsharpvis_16x16.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="icon\opencvsharpvis_256x256.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="icon\opencvsharpvis_32x32.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="icon\opencvsharpvis_48x48.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="icon\opencvsharpvis_512x512.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="icon\opencvsharpvis_72x72.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="icon\opencvsharpvis_96x96.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
     </ItemGroup>
 
     <ItemGroup>
