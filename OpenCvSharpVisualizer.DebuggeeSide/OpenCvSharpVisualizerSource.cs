@@ -5,6 +5,22 @@ namespace OpenCvSharpVisualizer.DebuggeeSide;
 
 public class OpenCvSharpVisualizerSource : VisualizerObjectSource
 {
+    private static readonly Mat invalidImage;
+
+    static OpenCvSharpVisualizerSource()
+    {
+        try
+        {
+            using var resourceStream = typeof(OpenCvSharpVisualizerSource).Assembly.GetManifestResourceStream("data/disposed.png");
+            invalidImage = Mat.FromStream(resourceStream, ImreadModes.Grayscale);
+            invalidImage ??= new Mat(64, 64, MatType.CV_8UC1, Scalar.PaleVioletRed);
+        }
+        catch
+        {
+            invalidImage = new Mat(64, 64, MatType.CV_8UC1, Scalar.PaleVioletRed);
+        }
+    }
+
     public override void GetData(object target, Stream outgoingData)
     {
         switch (target)
@@ -51,6 +67,11 @@ public class OpenCvSharpVisualizerSource : VisualizerObjectSource
 
     private static Mat PreparePngMat(Mat mat)
     {
+        if (mat.IsDisposed || mat.Empty())
+        {
+            return invalidImage;
+        }
+
         var matType = mat.Type();
 
         if (matType.Depth == MatType.CV_USRTYPE1)

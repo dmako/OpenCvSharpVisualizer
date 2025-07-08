@@ -6,7 +6,7 @@ namespace OpenCvSharpVisualizer;
 
 public class HttpImageProvider : IRemoteImageProvider, IDisposable
 {
-    public const string ListenerPrefix = "http://localhost:40505/cvimage/";
+    public const string ListenerPrefix = "http://localhost:40506/cvimage/";
 
     private readonly HttpListener _listener = new();
     private readonly CancellationTokenSource _cancellationTokenSource = new();
@@ -40,6 +40,7 @@ public class HttpImageProvider : IRemoteImageProvider, IDisposable
             {
                 listenerContext.Response.StatusCode = 404;
                 listenerContext.Response.Close();
+
             }
         }
     }

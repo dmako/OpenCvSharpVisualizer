@@ -5,6 +5,16 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <None Remove="data\disposed.png" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Include="data/**/*.png">
+          <LogicalName>$([System.String]::new('%(RelativeDir)').Replace('\','/'))%(FileName)%(Extension)</LogicalName>
+      </EmbeddedResource>
+    </ItemGroup>
+
+    <ItemGroup>
         <PackageReference Include="Microsoft.VisualStudio.DebuggerVisualizers" />
         <PackageReference Include="OpenCvSharp4" />
     </ItemGroup>

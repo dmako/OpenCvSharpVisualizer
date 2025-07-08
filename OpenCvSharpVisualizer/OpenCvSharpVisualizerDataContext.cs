@@ -74,7 +74,7 @@ public class OpenCvSharpVisualizerDataContext : NotifyPropertyChangedObject, IDi
         try
         {
             _model = dataSource;
-            var rawData = Convert.FromBase64String(dataSource.PngDataBase64);
+            var rawData = Convert.FromBase64String(dataSource?.PngDataBase64 ?? string.Empty);
             ImageUrl = _imageProvider.SetImageData(rawData);
 
             RaiseNotifyPropertyChangedEvent(nameof(ImageUrl));

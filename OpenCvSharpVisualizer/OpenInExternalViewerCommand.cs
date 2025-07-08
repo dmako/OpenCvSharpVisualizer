@@ -1,8 +1,5 @@
-﻿using System.Drawing;
-using System.Drawing.Imaging;
-using Microsoft.VisualStudio.Extensibility;
+﻿using Microsoft.VisualStudio.Extensibility;
 using Microsoft.VisualStudio.Extensibility.UI;
-using OpenCvSharp;
 
 namespace OpenCvSharpVisualizer;
 

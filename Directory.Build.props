@@ -1,8 +1,7 @@
 <Project>
     <PropertyGroup>
-        <TargetFramework>net8.0-windows</TargetFramework>
         <Configurations>Debug;Release</Configurations>
-        <Platform>Any CPU</Platform>
+        <Platform>AnAnyCPU</Platform>
         <LangVersion>latest</LangVersion>
         <ImplicitUsings>enable</ImplicitUsings>
         <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
@@ -11,9 +10,10 @@
         <EmbeddedResourceUseDependentUponConvention>true</EmbeddedResourceUseDependentUponConvention>
         <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
         <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+        <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
     </PropertyGroup>
     <PropertyGroup>
-        <Version>0.99.2-preview.3</Version>
+        <Version>0.99.3-preview.4</Version>
         <Company>David Makovský</Company>
         <Copyright>Copyright © 2024-$([System.DateTime]::Now.ToString(yyyy)) David Makovský</Copyright>
         <Authors>David Makovský</Authors>

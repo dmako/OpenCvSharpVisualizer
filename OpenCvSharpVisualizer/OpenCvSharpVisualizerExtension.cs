@@ -20,7 +20,7 @@ public class OpenCvSharpVisualizerExtension : Extension
             description: "Visualize OpenCVSharp types"
         )
         {
-            Icon = "icon\\opencvsharpvis_32x32.png",
+            Icon = "icon\\opencvsharpvis_128x128.png",
             InstallationTargetArchitecture = VisualStudioArchitecture.Amd64,
             Preview = true,
             Tags = ["OpenCv", "OpenCvSharp", "Visualizer"],

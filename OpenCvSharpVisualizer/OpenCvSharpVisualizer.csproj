@@ -1,17 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
+        <TargetFramework>net8.0-windows</TargetFramework>
         <Title>OpenCvSharp Visualizer</Title>
         <PackageProjectUrl>https://github.com/dmako/OpenCvSharpVisualizer</PackageProjectUrl>
         <RepositoryUrl>https://github.com/dmako/OpenCvSharpVisualizer</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
-        <MinimumVisualStudioVersion>17.6.0</MinimumVisualStudioVersion>
-        <VsixType>v3</VsixType>
+        <MinimumVisualStudioVersion>17.12.0</MinimumVisualStudioVersion>
         <ApplicationIcon>icon\opencvsharpvis.ico</ApplicationIcon>
     </PropertyGroup>
 
     <ItemGroup>
         <Compile Remove="OpenCvSharpVisualizerControl.xaml.cs" />
+        <Content Remove=".vsextension\string-resources.json" />
         <None Remove="icon\opencvsharpvis_128x128.png" />
         <None Remove="icon\opencvsharpvis_16x16.png" />
         <None Remove="icon\opencvsharpvis_256x256.png" />
@@ -66,9 +67,16 @@
     </ItemGroup>
 
     <ItemGroup>
+      <None Include=".vsextension\string-resources.json" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
         <PackageReference Include="Microsoft.VisualStudio.Extensibility.Sdk" />
         <PackageReference Include="Microsoft.VisualStudio.Extensibility.Build" />
         <PackageReference Include="OpenCvSharp4.Windows" />
+        <PackageReference Include="System.Drawing.Common" />
     </ItemGroup>
 
 </Project>
