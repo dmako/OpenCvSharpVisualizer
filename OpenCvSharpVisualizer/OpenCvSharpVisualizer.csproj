@@ -8,6 +8,8 @@
         <RepositoryType>git</RepositoryType>
         <MinimumVisualStudioVersion>17.12.0</MinimumVisualStudioVersion>
         <ApplicationIcon>icon\opencvsharpvis.ico</ApplicationIcon>
+        <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+        <UseWPF>true</UseWPF>
     </PropertyGroup>
 
     <ItemGroup>
@@ -71,12 +73,14 @@
     </ItemGroup>
 
     <ItemGroup>
+        <PackageReference Include="MessagePack" />
         <PackageReference Include="Microsoft.Extensions.DependencyInjection" />
         <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
+        <PackageReference Include="Microsoft.NETCore.Platforms" />
         <PackageReference Include="Microsoft.VisualStudio.Extensibility.Sdk" />
         <PackageReference Include="Microsoft.VisualStudio.Extensibility.Build" />
+        <PackageReference Include="Microsoft.VisualStudio.Imaging.Interop.14.0.DesignTime" />
         <PackageReference Include="OpenCvSharp4.Windows" />
-        <PackageReference Include="System.Drawing.Common" />
     </ItemGroup>
 
 </Project>

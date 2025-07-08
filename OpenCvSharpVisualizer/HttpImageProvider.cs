@@ -1,6 +1,4 @@
-﻿using System.Drawing;
-using System.Drawing.Imaging;
-using System.Net;
+﻿using System.Net;
 
 namespace OpenCvSharpVisualizer;
 
@@ -60,23 +58,14 @@ public class HttpImageProvider : IRemoteImageProvider, IDisposable
                 lock (_imageDataLock)
                 {
                     response.OutputStream.Write(_imageData, 0, _imageData.Length);
+                    response.Close();
                 }
             }
             else
             {
-                using var bmpImage = new Bitmap(128, 128);
-                var g = Graphics.FromImage(bmpImage);
-                g.Clear(Color.Transparent);
-                using var font = new Font("Arial", 20);
-                var stringSize = g.MeasureString("?", font);
-                var titleLocation = new PointF((bmpImage.Width - stringSize.Width) / 2.0f, (bmpImage.Height - stringSize.Height) / 2.0f);
-                g.DrawString("?", font, Brushes.LightGray, titleLocation);
-
-                using var memStream = new MemoryStream();
-                bmpImage.Save(memStream, ImageFormat.Png);
-                memStream.WriteTo(response.OutputStream);
+                response.StatusCode = 404;
+                response.Close();
             }
-            response.Close();
         }
         else
         {

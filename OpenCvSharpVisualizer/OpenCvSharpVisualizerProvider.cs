@@ -24,7 +24,7 @@ public class OpenCvSharpVisualizerProvider : DebuggerVisualizerProvider
             VisualizerObjectSourceType = new(typeof(DebuggeeSide.OpenCvSharpVisualizerSource)),
             Style = VisualizerStyle.ToolWindow
         };
-    
+
     /// <inheritdoc/>
     public override async Task<IRemoteUserControl> CreateVisualizerAsync(VisualizerTarget visualizerTarget, CancellationToken cancellationToken)
         => await Task.FromResult(new OpenCvSharpVisualizerControl(visualizerTarget, _httpImageProvider));

@@ -1,4 +1,6 @@
-﻿using Microsoft.VisualStudio.Extensibility;
+﻿using System.IO;
+using System.Net.Http;
+using Microsoft.VisualStudio.Extensibility;
 using Microsoft.VisualStudio.Extensibility.UI;
 
 namespace OpenCvSharpVisualizer;
