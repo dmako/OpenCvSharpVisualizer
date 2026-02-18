@@ -1,35 +1,36 @@
 ﻿using System.Net;
+using AsyncAwaitBestPractices;
 
 namespace OpenCvSharpVisualizer;
 
-public class HttpImageProvider : IRemoteImageProvider, IDisposable
+public sealed class HttpImageProvider : IRemoteImageProvider, IDisposable
 {
     public const string ListenerPrefix = "http://localhost:40506/cvimage/";
 
     private readonly HttpListener _listener = new();
     private readonly CancellationTokenSource _cancellationTokenSource = new();
     private readonly object _imageDataLock = new();
+    private bool _disposedValue = false;
     private byte[]? _imageData = null;
 
     public HttpImageProvider()
     {
-        _ = StartAsync(ListenerPrefix, _cancellationTokenSource.Token);
+        StartAsync(ListenerPrefix, _cancellationTokenSource.Token)
+            .SafeFireAndForget();
     }
 
-    public void Stop()
-    {
-        _cancellationTokenSource.Cancel();
-    }
+    public void Stop() => _cancellationTokenSource.Cancel();
 
     public async Task StartAsync(string listenerPrefix, CancellationToken cancellationToken)
     {
-        var listener = new HttpListener();
-        listener.Prefixes.Add(listenerPrefix);
-        listener.Start();
+        _listener.Prefixes.Add(listenerPrefix);
+        _listener.Start();
+
+        using var cancellationGuard = cancellationToken.Register(() => _listener.Stop());
 
         while (!cancellationToken.IsCancellationRequested)
         {
-            var listenerContext = await listener.GetContextAsync();
+            var listenerContext = await _listener.GetContextAsync();
             try
             {
                 ProcessRequest(listenerContext);
@@ -38,7 +39,6 @@ public class HttpImageProvider : IRemoteImageProvider, IDisposable
             {
                 listenerContext.Response.StatusCode = 404;
                 listenerContext.Response.Close();
-
             }
         }
     }
@@ -83,10 +83,23 @@ public class HttpImageProvider : IRemoteImageProvider, IDisposable
         }
     }
 
-    public void Dispose()
+    private void Dispose(bool disposing)
     {
-        _cancellationTokenSource.Dispose();
-        ((IDisposable)_listener).Dispose();
+        if (!_disposedValue)
+        {
+            if (disposing)
+            {
+                Stop();
+                _cancellationTokenSource.Dispose();
+                ((IDisposable)_listener).Dispose();
+            }
+            _disposedValue = true;
+        }
+    }
+
+    void IDisposable.Dispose()
+    {
+        Dispose(disposing: true);
         GC.SuppressFinalize(this);
     }
 }

@@ -15,17 +15,11 @@ internal partial class OpenCvSharpVisualizerControl : RemoteUserControl
     {
     }
 
-    public override Task<string> GetXamlAsync(CancellationToken cancellationToken)
-        => base.GetXamlAsync(cancellationToken);
-
-    public override Task ControlLoadedAsync(CancellationToken cancellationToken)
-        => base.ControlLoadedAsync(cancellationToken);
-
     protected override void Dispose(bool disposing)
     {
         if (disposing)
         {
-            TypedContext?.Dispose();
+            (TypedContext as IDisposable)?.Dispose();
         }
         base.Dispose(disposing);
     }

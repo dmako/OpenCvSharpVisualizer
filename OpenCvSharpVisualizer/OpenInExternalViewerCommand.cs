@@ -5,10 +5,12 @@ using Microsoft.VisualStudio.Extensibility.UI;
 
 namespace OpenCvSharpVisualizer;
 
-public class OpenInExternalViewerCommand : NotifyPropertyChangedObject, IAsyncCommand
+public sealed class OpenInExternalViewerCommand : NotifyPropertyChangedObject, IAsyncCommand, IDisposable
 {
     private readonly OpenCvSharpVisualizerDataContext context;
+    private readonly HttpClient _httpClient = new();
     private bool _executionFailed = false;
+    private bool _disposedValue = false;
 
     public OpenInExternalViewerCommand(OpenCvSharpVisualizerDataContext context)
     {
@@ -35,10 +37,11 @@ public class OpenInExternalViewerCommand : NotifyPropertyChangedObject, IAsyncCo
 
         try
         {
-            var filePath = Path.ChangeExtension(Path.GetTempFileName(), "png");
+            // the file is not deleted after being opened, to allow the external viewer to read it without racing with our deletion logic,
+            // and to allow the user to open it manually if automatic opening fails for some reason
+            var filePath = Path.Combine(Path.GetTempPath(),  Path.GetRandomFileName() + ".png");
             {
-                using var client = new HttpClient();
-                var response = await client.GetAsync(url, cancellationToken);
+                var response = await _httpClient.GetAsync(url, cancellationToken);
                 _ = response.EnsureSuccessStatusCode();
                 using var networkStream = await response.Content.ReadAsStreamAsync(cancellationToken);
                 using var fileStream = new FileStream(filePath, FileMode.Create, FileAccess.Write, FileShare.Read);
@@ -56,5 +59,23 @@ public class OpenInExternalViewerCommand : NotifyPropertyChangedObject, IAsyncCo
             _executionFailed = true;
             RaiseNotifyPropertyChangedEvent(nameof(CanExecute));
         }
+    }
+
+    private void Dispose(bool disposing)
+    {
+        if (!_disposedValue)
+        {
+            if (disposing)
+            {
+                _httpClient.Dispose();
+            }
+            _disposedValue = true;
+        }
+    }
+
+    void IDisposable.Dispose()
+    {
+        Dispose(disposing: true);
+        GC.SuppressFinalize(this);
     }
 }

@@ -73,6 +73,7 @@
     </ItemGroup>
 
     <ItemGroup>
+        <PackageReference Include="AsyncAwaitBestPractices" />
         <PackageReference Include="MessagePack" />
         <PackageReference Include="Microsoft.Extensions.DependencyInjection" />
         <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
@@ -81,6 +82,10 @@
         <PackageReference Include="Microsoft.VisualStudio.Extensibility.Build" />
         <PackageReference Include="Microsoft.VisualStudio.Imaging.Interop.14.0.DesignTime" />
         <PackageReference Include="OpenCvSharp4.Windows" />
+        <PackageReference Include="SonarAnalyzer.CSharp">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
     </ItemGroup>
 
 </Project>

@@ -297,3 +297,9 @@ dotnet_diagnostic.CA2245.severity = error
 dotnet_diagnostic.CA2254.severity = error
 # CA2259: Ensure ThreadStatic is only used with static fields
 dotnet_diagnostic.CA2259.severity = error
+
+# S2953: Methods named "Dispose" should implement "IDisposable.Dispose" - produces false positives
+dotnet_diagnostic.S2953.severity = suggestion
+
+# S1199: Nested code blocks should not be used
+dotnet_diagnostic.S1199.severity = suggestion

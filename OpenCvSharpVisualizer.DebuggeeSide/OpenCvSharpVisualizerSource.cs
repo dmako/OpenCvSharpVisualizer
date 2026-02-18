@@ -5,19 +5,21 @@ namespace OpenCvSharpVisualizer.DebuggeeSide;
 
 public class OpenCvSharpVisualizerSource : VisualizerObjectSource
 {
-    private static readonly Mat invalidImage;
+    // shared resource for invalid or disposed Mat, to avoid the overhead of creating a new one for each such case
+    // intentionally not disposed, as it is meant to be reused and should last for the lifetime of the debugged application
+    private static readonly Mat invalidImage = Initialize();
 
-    static OpenCvSharpVisualizerSource()
+    private static Mat Initialize()
     {
         try
         {
             using var resourceStream = typeof(OpenCvSharpVisualizerSource).Assembly.GetManifestResourceStream("data/disposed.png");
-            invalidImage = Mat.FromStream(resourceStream, ImreadModes.Grayscale);
-            invalidImage ??= new Mat(64, 64, MatType.CV_8UC1, Scalar.PaleVioletRed);
+            var mat = Mat.FromStream(resourceStream, ImreadModes.Grayscale);
+            return mat.CvPtr == IntPtr.Zero ? throw new InvalidDataException("Failed to load the default image for disposed Mat.") : mat;
         }
         catch
         {
-            invalidImage = new Mat(64, 64, MatType.CV_8UC1, Scalar.PaleVioletRed);
+            return new Mat(64, 64, MatType.CV_8UC1, Scalar.PaleVioletRed);
         }
     }
 
@@ -87,7 +89,6 @@ public class OpenCvSharpVisualizerSource : VisualizerObjectSource
             var result = new Mat(mat.Size(), MatType.CV_8UC1);
             mat.ConvertTo(result, MatType.CV_8UC1, 255.0);
             return result;
-            //return matType.Depth == MatType.CV_32F ? PrepareFloatImage(mat) : PrepareDoubleImage(mat);
         }
         else if (matType.Channels == 3)
         {
@@ -104,6 +105,8 @@ public class OpenCvSharpVisualizerSource : VisualizerObjectSource
         else if (matType.Channels == 2)
         {
             Cv2.Split(mat, out var twoChannels);
+            using var ch1DisposeGuard = twoChannels[0];
+            using var ch2DisposeGuard = twoChannels[1];
             var channels = new[] { twoChannels[0], twoChannels[1], twoChannels[0] };
             var result = new Mat(mat.Size(), MatType.CV_8UC3);
             Cv2.Merge(channels, result);

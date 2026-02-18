@@ -1,15 +1,17 @@
 <Project>
   <ItemGroup>
+    <PackageVersion Include="AsyncAwaitBestPractices" Version="10.0.0" />
     <PackageVersion Include="MessagePack" Version="2.5.198" />
-    <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="8.0.1" />
-    <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.2" />
+    <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="10.0.3" />
+    <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.3" />
     <PackageVersion Include="Microsoft.NETCore.Platforms" Version="7.0.4" />
     <PackageVersion Include="Microsoft.VisualStudio.DebuggerVisualizers" Version="17.6.1032901" />
     <PackageVersion Include="Microsoft.VisualStudio.Extensibility.Sdk" Version="17.12.40390" />
     <PackageVersion Include="Microsoft.VisualStudio.Extensibility.Build" Version="17.12.40390" />
     <PackageVersion Include="Microsoft.VisualStudio.Imaging.Interop.14.0.DesignTime" Version="17.12.40390" />
-    <PackageVersion Include="OpenCvSharp4" Version="4.11.0.20250507" />
-    <PackageVersion Include="OpenCvSharp4.Windows" Version="4.11.0.20250507" />
+    <PackageVersion Include="OpenCvSharp4" Version="4.13.0.20260214" />
+    <PackageVersion Include="OpenCvSharp4.Windows" Version="4.13.0.20260214" />
     <PackageVersion Include="Microsoft.SourceLink.GitHub" Version="8.0.0" />
+    <PackageVersion Include="SonarAnalyzer.CSharp" Version="10.19.0.132793" />
   </ItemGroup>
 </Project>

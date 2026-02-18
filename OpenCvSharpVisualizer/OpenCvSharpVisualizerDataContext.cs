@@ -7,11 +7,13 @@ using OpenCvSharpVisualizer.DebuggeeSide;
 namespace OpenCvSharpVisualizer;
 
 [DataContract]
-public class OpenCvSharpVisualizerDataContext : NotifyPropertyChangedObject, IDisposable
+public sealed class OpenCvSharpVisualizerDataContext : NotifyPropertyChangedObject, IDisposable
 {
     private readonly VisualizerTarget _visualizerTarget;
+    private readonly IRemoteImageProvider _imageProvider;
+    private bool _disposedValue = false;
     private MatObjectDataSource? _model;
-    private IRemoteImageProvider _imageProvider;
+    
 
     public OpenCvSharpVisualizerDataContext(VisualizerTarget visualizerTarget, IRemoteImageProvider imageProvider)
     {
@@ -74,7 +76,7 @@ public class OpenCvSharpVisualizerDataContext : NotifyPropertyChangedObject, IDi
         try
         {
             _model = dataSource;
-            var rawData = Convert.FromBase64String(dataSource?.PngDataBase64 ?? string.Empty);
+            var rawData = Convert.FromBase64String(dataSource.PngDataBase64);
             ImageUrl = _imageProvider.SetImageData(rawData);
 
             RaiseNotifyPropertyChangedEvent(nameof(ImageUrl));
@@ -94,12 +96,24 @@ public class OpenCvSharpVisualizerDataContext : NotifyPropertyChangedObject, IDi
         _model = null;
     }
 
-    public void Dispose()
+    private void Dispose(bool disposing)
     {
-        _visualizerTarget.StateChanged -= OnStateChangedAsync;
-        _visualizerTarget.Dispose();
+        if (!_disposedValue)
+        {
+            if (disposing)
+            {
+                _visualizerTarget.StateChanged -= OnStateChangedAsync;
+                _visualizerTarget.Dispose();
+                ResetBindings();
+                ((IDisposable)OpenExternalCommand).Dispose();
+            }
+            _disposedValue = true;
+        }
+    }
 
-        ResetBindings();
+    void IDisposable.Dispose()
+    {
+        Dispose(disposing: true);
         GC.SuppressFinalize(this);
     }
 }
